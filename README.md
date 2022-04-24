@@ -1,2 +1,2 @@
 # EX183
-Some project that i create to prepare myself for the exam EX183
+Some projects I created to prepare myself for Red Hat EX183 certification
