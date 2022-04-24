@@ -1,0 +1,119 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.test.gdramis</groupId>
+	<artifactId>TestProject</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+  	<packaging>war</packaging>
+  	
+  	<properties>
+        <!-- maven-compiler-plugin -->  	
+	  	<maven.compiler.target>1.8</maven.compiler.target>
+	  	<maven.compiler.source>1.8</maven.compiler.source>
+  		
+  		<!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
+        <version.jboss.bom>8.2.1.Final</version.jboss.bom>
+        <version.wildfly>9.0.0.Alpha1</version.wildfly>
+		
+		<!-- other plugin versions -->
+		<version.war.plugin>3.3.2</version.war.plugin>
+  		<version.wildfly.maven.plugin>3.0.0.Final</version.wildfly.maven.plugin>
+  	</properties>
+  	
+  	<dependencies>
+  		<!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss WildFly -->
+     	<dependency>
+        	<groupId>org.jboss.resteasy</groupId>
+        	<artifactId>jaxrs-api</artifactId>
+        	<scope>provided</scope>
+      	</dependency>
+      	<!-- Import the JSF API, we use provided scope as the API is included in JBoss WildFly -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.faces</groupId>
+			<artifactId>jboss-jsf-api_2.2_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+      	<!-- Import the CDI API, we use provided scope as the API is included in JBoss WildFly -->
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+      	<!-- Import the EJB API, we use provided scope as the API is included in JBoss WildFly -->
+      	<dependency>
+          	<groupId>org.jboss.spec.javax.ejb</groupId>
+          	<artifactId>jboss-ejb-api_3.2_spec</artifactId>
+          	<scope>provided</scope>
+      	</dependency>
+      	<!-- Import the JPA API, we use provided scope as the API is included in JBoss WildFly -->
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <scope>provided</scope>
+        </dependency>   
+        <!-- JSR-303 (Bean Validation) Implementation -->
+        <!-- Provides portable constraints such as @Email -->
+        <!-- Hibernate Validator is shipped in JBoss WildFly -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>provided</scope>
+        </dependency>  	
+  	</dependencies>
+  	
+  	<dependencyManagement>
+  		<dependencies>
+            <!-- JBoss distributes a complete set of Java EE 7 APIs including
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
+                a collection) of artifacts. We use this here so that we always get the correct 
+                versions of artifacts. Here we use the jboss-javaee-7.0-with-tools stack
+                (you can read this as the JBoss stack of the Java EE 7 APIs, with some extras
+                tools for your project, such as Arquillian for testing) and the jboss-javaee-7.0-with-hibernate
+                stack you can read this as the JBoss stack of the Java EE 7 APIs, with extras
+                from the Hibernate family of projects) -->
+            <dependency>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>jboss-javaee-7.0-with-tools</artifactId>
+                <version>${version.jboss.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>jboss-javaee-7.0-with-hibernate</artifactId>
+                <version>${version.jboss.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+		</dependencies>
+	</dependencyManagement>
+  	
+  	<build>
+        <finalName>${project.artifactId}</finalName>
+		<pluginManagement>
+        	<plugins>
+                <plugin>
+					<artifactId>maven-war-plugin</artifactId>
+				    <version>${version.war.plugin}</version>
+				    <configuration>
+				    	<!-- Java EE 7 doesn't require web.xml, Maven needs to catch up! -->
+				        <failOnMissingWebXml>false</failOnMissingWebXml>
+				    </configuration>
+				</plugin>
+                <!-- The WildFly plugin deploys your ear to a local JBoss
+                    AS container -->
+                <!-- Due to Maven's lack of intelligence with EARs we need 
+                    to configure the wildfly maven plugin to skip deployment for all modules.
+                    We then enable it specifically in the ear module. -->
+                <plugin>
+                    <groupId>org.wildfly.plugins</groupId>
+                    <artifactId>wildfly-maven-plugin</artifactId>
+                    <version>${version.wildfly.maven.plugin}</version>
+                    <inherited>true</inherited>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
