@@ -26,6 +26,7 @@
       <!-- The datasource is deployed as <EAR>/META-INF/earTest-ds.xml, you
          can find it in the source at ear/src/main/application/META-INF/earTest-ds.xml -->
       <jta-data-source>java:jboss/datasources/TestProjectDS</jta-data-source>
+      <class>org.test.dramis.model.Pearson</class>
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
