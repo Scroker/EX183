@@ -38,4 +38,22 @@ public class EmployeeService {
 		return query.getResultList();
 	}
 
+	public List<Employee> searchEmployeeByName(String name) {
+		TypedQuery<Employee> query = em.createNamedQuery("getEmployeesByName", Employee.class);
+		query.setParameter("name", name);
+		return query.getResultList();
+	}
+
+	public List<Employee> searchEmployeeByTeam(Integer teamId) {
+		TypedQuery<Employee> query = em.createNamedQuery("getEmployeesByTeam", Employee.class);
+		query.setParameter("teamId", teamId);
+		return query.getResultList();
+	}
+	
+	public List<Employee> searchEmployeeByManager(Integer managerId) {
+		TypedQuery<Employee> query = em.createNamedQuery("getEmployeesByManager", Employee.class);
+		query.setParameter("managerId", managerId);
+		return query.getResultList();
+	}
+
 }

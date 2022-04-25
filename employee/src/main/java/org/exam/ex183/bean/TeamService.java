@@ -38,4 +38,9 @@ public class TeamService {
 		return query.getResultList();
 	}
 
+	public List<Team> searchTeamByName(String name) {
+		TypedQuery<Team> query = em.createNamedQuery("getTeamsByName", Team.class);
+		query.setParameter("name", name);
+		return query.getResultList();
+	}
 }

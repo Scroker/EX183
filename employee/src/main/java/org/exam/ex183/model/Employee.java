@@ -12,11 +12,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement
 @NamedQueries({
-	@NamedQuery(name = "getEmployeesByManager", query = "SELECT e FROM Employee e WHERE e.team.manager.id = :managerId"),
-	@NamedQuery(name = "getEmployeesByTeam", query = "SELECT e FROM Employee e WHERE e.team.id = :teamId")
+	@NamedQuery(name = "getEmployeesByName", query = "SELECT e FROM Employee e WHERE e.name = :name"),
+	@NamedQuery(name = "getEmployeesByTeam", query = "SELECT e FROM Employee e WHERE e.team.id = :teamId"),
+	@NamedQuery(name = "getEmployeesByManager", query = "SELECT e FROM Employee e WHERE e.team.manager.id = :managerId")
 })
 public class Employee implements Serializable {
 
@@ -34,6 +37,7 @@ public class Employee implements Serializable {
 	@Size(min = 2)
 	private String surname;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "teamID")
 	private Team team;

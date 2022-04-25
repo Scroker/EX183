@@ -7,11 +7,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
+@XmlRootElement
+@NamedQuery(name = "getManagersByName", query = "SELECT m FROM Manager m WHERE m.name = :name")
 public class Manager implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -29,6 +34,7 @@ public class Manager implements Serializable {
 	private String surname;
 	
 	@OneToOne
+	@XmlTransient
 	@JoinColumn(name = "teamID")
 	private Team team;
 

@@ -39,6 +39,9 @@ public class ManagerService {
 		return query.getResultList();
 	}
 	
-	
-
+	public List<Manager> searchManagerByName(String name) {
+		TypedQuery<Manager> query = em.createNamedQuery("getManagersByName", Manager.class);
+		query.setParameter("name", name);
+		return query.getResultList();
+	}
 }
