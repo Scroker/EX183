@@ -21,7 +21,9 @@ public class ManagerServiceRest {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Manager> getAllManagers() {
+	public List<Manager> getManagers(@QueryParam("name") String name) {
+		if (name != null)
+			return managerService.searchManagerByName(name);
 		return managerService.listAllManager();
 	}
 	
@@ -31,11 +33,4 @@ public class ManagerServiceRest {
 	public Manager getManager(@PathParam("id") Integer id) {
 		return managerService.searchManager(id);
 	}
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Manager> getManager(@QueryParam("name") String name) {
-		return managerService.searchManagerByName(name);
-	}
-	
 }

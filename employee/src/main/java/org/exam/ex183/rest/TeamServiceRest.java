@@ -11,7 +11,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.exam.ex183.bean.TeamService;
-import org.exam.ex183.model.Employee;
 import org.exam.ex183.model.Team;
 
 @Path("team")
@@ -22,20 +21,16 @@ public class TeamServiceRest {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Team> getAllTeams() {
+	public List<Team> getTeams(@QueryParam("name") String name) {
+		if (name != null)
+			return teamService.searchTeamByName(name);
 		return teamService.listAllTeam();
 	}
 
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Team getEmployee(@PathParam("id") Integer id) {
+	public Team getTeam(@PathParam("id") Integer id) {
 		return teamService.searchTeam(id);
 	}
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Team> getEmployee(@QueryParam("name") String name) {
-		return teamService.searchTeamByName(name);
-	}	
 }

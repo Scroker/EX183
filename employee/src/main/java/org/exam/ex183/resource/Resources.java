@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 public class Resources {
 	
 	@Produces
-	@PersistenceContext
+	@PersistenceContext(unitName = "employee")
 	private EntityManager em;
 	
 }
