@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /* 
  * La classe log message segnala un errore perché eclipse non è in grado di 
- * leggere più di un datasource da un singolo file 
+ * leggere più di un datasource da un singolo file (vedi persistence.xml)
  */
 @Entity
 @XmlRootElement
