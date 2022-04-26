@@ -9,11 +9,13 @@ import javax.persistence.TypedQuery;
 
 import org.exam.ex183.model.Employee;
 import org.exam.ex183.model.Team;
+import org.exam.ex183.resource.PersistenceContextEmployee;
 
 @Stateless
 public class TeamService {
 	
 	@Inject
+	@PersistenceContextEmployee
 	private EntityManager em;
 	
 	public void createTeam(Team team) {

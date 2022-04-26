@@ -8,11 +8,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.exam.ex183.model.Employee;
+import org.exam.ex183.resource.PersistenceContextEmployee;
 
 @Stateless
 public class EmployeeService {
 	
 	@Inject
+	@PersistenceContextEmployee
 	private EntityManager em;
 	
 	public void createEmployee(Employee employee) {

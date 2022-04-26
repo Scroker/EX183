@@ -15,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.exam.ex183.bean.EmployeeService;
+import org.exam.ex183.bean.LogMessageService;
 import org.exam.ex183.bean.TeamService;
 import org.exam.ex183.model.Employee;
 import org.exam.ex183.requestModel.EmployeeRequest;
@@ -28,11 +29,15 @@ public class EmployeeServiceRest {
 	@EJB
 	private EmployeeService employeeService;
 	
+	@EJB
+	private LogMessageService logMessageService;
+	
 	/* GET FUNCTIONS */
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Employee> searchEmployees(@QueryParam("managerId") Integer managerId, @QueryParam("teamId") Integer teamId, @QueryParam("name") String name) {
+		logMessageService.writeLog("Porcoddio! funziona allora!");
 		if (teamId != null)
 			return employeeService.searchEmployeeByTeam(teamId);
 		else if (managerId != null)

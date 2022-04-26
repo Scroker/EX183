@@ -9,11 +9,13 @@ import javax.persistence.TypedQuery;
 
 import org.exam.ex183.model.Employee;
 import org.exam.ex183.model.Manager;
+import org.exam.ex183.resource.PersistenceContextEmployee;
 
 @Stateless
 public class ManagerService {
 	
 	@Inject
+	@PersistenceContextEmployee
 	private EntityManager em;
 	
 	public void createManager(Manager manager) {

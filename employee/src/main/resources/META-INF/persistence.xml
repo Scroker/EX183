@@ -15,8 +15,9 @@
 	</persistence-unit>
 	<persistence-unit name="log" transaction-type="JTA">
 		<jta-data-source>java:jboss/datasources/LogDS</jta-data-source>
+		<class>org.exam.ex183.model.LogMessage</class>
 		<properties>
-			<property name="hibernate.hbm2ddl.auto" value="none" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 		</properties>
