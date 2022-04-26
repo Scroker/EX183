@@ -31,7 +31,6 @@ public class Team implements Serializable {
 	@Size(min = 2)
 	private String name;
 
-	@NotNull
 	@XmlTransient
 	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
 	private List<Employee> employees;

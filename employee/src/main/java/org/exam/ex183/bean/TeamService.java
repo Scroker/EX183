@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import org.exam.ex183.model.Employee;
 import org.exam.ex183.model.Team;
 
 @Stateless
@@ -26,6 +27,22 @@ public class TeamService {
 	
 	public Team searchTeam(Integer id) {
 		return em.find(Team.class, id);
+	}
+	
+	public void addEmployee(Integer teamId, Employee employee) {
+		Team team = em.find(Team.class, teamId);
+		if (!team.getEmployees().contains(employee)) {
+			team.getEmployees().add(employee);
+			em.merge(team);
+		}
+	}
+	
+	public void removeEmployee(Integer teamId, Employee employee) {
+		Team team = em.find(Team.class, teamId);
+		if (!team.getEmployees().contains(employee)) {
+			team.getEmployees().remove(employee);
+			em.merge(team);
+		}
 	}
 	
 	public void deleteTeam(Integer id) {
