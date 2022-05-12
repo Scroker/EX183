@@ -2,6 +2,7 @@ package org.exam.ex183.rest;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -35,6 +36,7 @@ public class EmployeeServiceRest {
 	/* GET FUNCTIONS */
 	
 	@GET
+	@RolesAllowed({"admins", "users"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Employee> searchEmployees(@QueryParam("managerId") Integer managerId, @QueryParam("teamId") Integer teamId, @QueryParam("name") String name) {
 		logMessageService.writeLog("Porcoddio! funziona allora!");
@@ -49,6 +51,7 @@ public class EmployeeServiceRest {
 	
 	@GET
 	@Path("{id}")
+	@RolesAllowed({"admins", "users"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public Employee searchEmployee(@PathParam("id") Integer id) {
 		return employeeService.searchEmployee(id);
@@ -57,6 +60,7 @@ public class EmployeeServiceRest {
 	/* POST FUNCTIONS */
 	
 	@POST
+	@RolesAllowed("admins")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createEmployee(EmployeeRequest request) {
 		Employee employee = new Employee();
@@ -70,6 +74,7 @@ public class EmployeeServiceRest {
 	
 	@PUT
 	@Path("{id}")
+	@RolesAllowed("admins")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateEmployee(@PathParam("id") Integer id, EmployeeRequest request) {
 		Employee employee = employeeService.searchEmployee(id);
@@ -86,6 +91,7 @@ public class EmployeeServiceRest {
 	
 	@DELETE
 	@Path("{id}")
+	@RolesAllowed("admins")
 	public void deleteManager(@PathParam("id") Integer id) {
 		Employee employee = employeeService.searchEmployee(id);
 		teamService.removeEmployee(id, employee);

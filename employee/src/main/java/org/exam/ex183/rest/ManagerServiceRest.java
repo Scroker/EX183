@@ -2,6 +2,7 @@ package org.exam.ex183.rest;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,6 +33,7 @@ public class ManagerServiceRest {
 	/* GET FUNCTIONS */
 	
 	@GET
+	@RolesAllowed({"admins", "users"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Manager> searchManagers(@QueryParam("name") String name) {
 		if (name != null)
@@ -41,6 +43,7 @@ public class ManagerServiceRest {
 	
 	@GET
 	@Path("{id}")
+	@RolesAllowed({"admins", "users"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public Manager searchManager(@PathParam("id") Integer id) {
 		return managerService.searchManager(id);
@@ -49,6 +52,7 @@ public class ManagerServiceRest {
 	/* POST FUNCTIONS */
 	
 	@POST
+	@RolesAllowed("admins")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createManager(ManagerRequest request) {
 		Manager manager = new Manager();
@@ -61,6 +65,7 @@ public class ManagerServiceRest {
 	/* PUT FUNCTIONS */
 	@PUT
 	@Path("{id}")
+	@RolesAllowed("admins")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateManager(@PathParam("id") Integer id, ManagerRequest request) {
 		Manager manager = managerService.searchManager(id);
@@ -74,6 +79,7 @@ public class ManagerServiceRest {
 	
 	@DELETE
 	@Path("{id}")
+	@RolesAllowed("admins")
 	public void deleteManager(@PathParam("id") Integer id) {
 		Team team = managerService.searchManager(id).getTeam();
 		teamService.deleteTeam(team.getId());

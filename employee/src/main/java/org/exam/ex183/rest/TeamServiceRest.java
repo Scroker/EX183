@@ -2,6 +2,7 @@ package org.exam.ex183.rest;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -33,19 +34,21 @@ public class TeamServiceRest {
 
 	@EJB
 	private EmployeeService employeeService;
+
+	/* GET FUNCTIONS */
 	
 	@GET
+	@RolesAllowed({"admins", "users"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Team> searchTeams(@QueryParam("name") String name) {
 		if (name != null)
 			return teamService.searchTeamByName(name);
 		return teamService.listAllTeam();
 	}
-
-	/* GET FUNCTIONS */
 	
 	@GET
 	@Path("{id}")
+	@RolesAllowed({"admins", "users"})
 	@Produces(MediaType.APPLICATION_JSON)
 	public Team searchTeam(@PathParam("id") Integer id) {
 		return teamService.searchTeam(id);
@@ -54,6 +57,7 @@ public class TeamServiceRest {
 	/* POST FUNCTIONS */
 	
 	@POST
+	@RolesAllowed("admins")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void createTeam(TeamRequest request) {
 		Team team = new Team();
@@ -65,6 +69,7 @@ public class TeamServiceRest {
 	/* PUT FUNCTIONS */
 	
 	@PUT
+	@RolesAllowed("admins")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	public void addEmployeeToTeam(@PathParam("id") Integer teamId, @QueryParam("employeeId") Integer employeeId) {
@@ -73,8 +78,9 @@ public class TeamServiceRest {
 	}
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("{id}")
+	@RolesAllowed("admins")
+	@Consumes(MediaType.APPLICATION_JSON)
 	public void updateTeam(@PathParam("id") Integer teamId, TeamRequest request) {
 		Team team = teamService.searchTeam(teamId);
 		if (request.getManagerId() != null) {
@@ -91,6 +97,7 @@ public class TeamServiceRest {
 	
 	@DELETE
 	@Path("{id}")
+	@RolesAllowed("admin")
 	public void deleteTeam(@PathParam("id") Integer teamId, @QueryParam("employeeId") Integer employeeId) {
 		if (employeeId != null) {
 			Employee employee = employeeService.searchEmployee(employeeId);
