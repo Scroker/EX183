@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Employee Servlet</title>
+	</head>
+	<body>
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Name:" for="name" />
+				<h:inputText id="name" label="Name" value="#{messageServlet.name}" />
+				
+				<h:outputLabel value="Email:" for="email" />
+				<h:inputText id="email" label="Email" value="#{messageServlet.email}" />
+			
+				<h:outputLabel value="Message:" for="message" />
+				<h:inputText id="message" label="Message" value="#{messageServlet.message}" />
+			
+			</h:panelGrid>
+			<h:panelGrid columns="1">
+				<h:message for="name" style="color:red" />
+				
+				<h:message for="email" style="color:red" />
+				
+				<h:message for="message" style="color:red" />
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:commandButton value="Save" action="#{messageServlet.sendMessage()}" />
+				<h:link value="Show Senders" outcome="sender-list"/>
+			</h:panelGrid>
+		</h:form>
+	</body>
+</html>
