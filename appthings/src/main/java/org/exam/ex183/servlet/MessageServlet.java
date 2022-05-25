@@ -21,8 +21,8 @@ import javax.validation.constraints.Size;
 import org.exam.ex183.exception.ValidationException;
 import org.exam.ex183.model.GreetingMessage;
 import org.exam.ex183.model.Sender;
-import org.jboss.ex183.registry.GreetingMessageRegistry;
-import org.jboss.ex183.registry.SenderRegistry;
+import org.exam.ex183.registry.GreetingMessageRegistry;
+import org.exam.ex183.registry.SenderRegistry;
 
 @Named
 @RequestScoped

@@ -1,4 +1,4 @@
-package org.jboss.ex183.registry;
+package org.exam.ex183.registry;
 
 import java.util.List;
 import java.util.Set;
