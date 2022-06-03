@@ -14,6 +14,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.Email;
 
@@ -43,6 +44,7 @@ public class HerdLeader implements Serializable {
 	@Email
 	private String email;
 	
+	@XmlTransient
 	@OneToMany(mappedBy = "leader", fetch = FetchType.EAGER)
 	private List<HerdMember> underlings;
 

@@ -42,14 +42,16 @@ public class HerdService {
 	}
 	
 	@POST
-	@Path("assingLeader/{memberId}/{leaderId}")
+	@Path("assignLeader/{memberId}/{leaderId}")
 	public Response promoteLeader(@PathParam("memberId") Long memberId, @PathParam("leaderId") Long leaderId) {	
 		ResponseBuilder rb;
 		try {
 			HerdMember member = hms.getMember(memberId);
 			HerdLeader leader = hls.getLeader(leaderId);
 			leader.getUnderlings().add(member);
+			hls.updateLeader(leader);
 			member.setLeader(leader);
+			hms.updateMember(member);
 			rb = Response.ok();
 		} catch (Exception e) {
 			rb = Response.serverError();
