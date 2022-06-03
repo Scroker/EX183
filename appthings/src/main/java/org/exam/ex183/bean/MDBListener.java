@@ -12,8 +12,8 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 
 import org.exam.ex183.model.GreetingMessage;
-import org.jboss.ex183.registry.GreetingMessageRegistry;
-import org.jboss.ex183.registry.SenderRegistry;
+import org.exam.ex183.registry.GreetingMessageRegistry;
+import org.exam.ex183.registry.SenderRegistry;
 
 @MessageDriven(name = "MessageListener",  activationConfig = {
 	@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/MessageQueue"),
